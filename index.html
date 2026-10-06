@@ -193,9 +193,7 @@
     .hero-content {
       position: relative;
       z-index: 2;
-
       width: 100%;
-
       display: grid;
       grid-template-columns: minmax(0, 1fr) 430px;
       align-items: center;
@@ -216,9 +214,7 @@
       width: 100%;
       height: 480px;
       object-fit: cover;
-
       border-radius: 16px;
-
       border: 1px solid rgba(255,255,255,.15);
 
       box-shadow:
@@ -229,6 +225,7 @@
 
     .hero-image img:hover {
       transform: translateY(-4px);
+
       box-shadow:
         0 30px 70px rgba(0,0,0,.42);
     }
@@ -413,6 +410,142 @@
     }
 
     /* =========================
+       GALERIA DE TRABALHOS
+    ========================= */
+
+    .gallery {
+      background: #fff;
+      padding: 90px 0;
+      overflow: hidden;
+    }
+
+    .gallery-head {
+      max-width: 720px;
+      margin-bottom: 40px;
+    }
+
+    .gallery-head p {
+      color: #617181;
+    }
+
+    .gallery-track-wrapper {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gallery-track-wrapper::before,
+    .gallery-track-wrapper::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 120px;
+      height: 100%;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .gallery-track-wrapper::before {
+      left: 0;
+      background: linear-gradient(
+        90deg,
+        #fff 0%,
+        rgba(255,255,255,.85) 25%,
+        transparent 100%
+      );
+    }
+
+    .gallery-track-wrapper::after {
+      right: 0;
+      background: linear-gradient(
+        270deg,
+        #fff 0%,
+        rgba(255,255,255,.85) 25%,
+        transparent 100%
+      );
+    }
+
+    .gallery-track {
+      display: flex;
+      width: max-content;
+      gap: 20px;
+      animation: galleryMove 35s linear infinite;
+      will-change: transform;
+    }
+
+    .gallery-track:hover {
+      animation-play-state: paused;
+    }
+
+    .gallery-item {
+      width: 360px;
+      height: 250px;
+      flex-shrink: 0;
+
+      border-radius: 14px;
+      overflow: hidden;
+
+      background: #fff;
+
+      border: 1px solid #dfe7ed;
+
+      box-shadow:
+        0 10px 30px rgba(4, 28, 55, .10);
+
+      position: relative;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      transition: transform .5s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.06);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      padding: 35px 20px 18px;
+
+      background: linear-gradient(
+        transparent,
+        rgba(3,18,37,.85)
+      );
+
+      color: #fff;
+
+      font-size: 14px;
+      font-weight: 700;
+
+      opacity: 0;
+      transition: .3s;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    @keyframes galleryMove {
+
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(calc(-50% - 10px));
+      }
+
+    }
+
+    /* =========================
        ABOUT
     ========================= */
 
@@ -459,8 +592,6 @@
 
       isolation: isolate;
     }
-
-    /* brilho atrás do logo */
 
     .about-visual::before {
       content: "";
@@ -537,7 +668,7 @@
 
       z-index: 5;
 
-      transition: transform .12s ease-out;
+      transition: none;
 
       transform:
         rotateX(0deg)
@@ -1055,6 +1186,27 @@
         text-align: center;
       }
 
+      /* GALERIA */
+
+      .gallery {
+        padding: 65px 0;
+      }
+
+      .gallery-item {
+        width: 280px;
+        height: 200px;
+      }
+
+      .gallery-track {
+        gap: 14px;
+        animation-duration: 28s;
+      }
+
+      .gallery-track-wrapper::before,
+      .gallery-track-wrapper::after {
+        width: 60px;
+      }
+
       /* LOGO 3D NO CELULAR */
 
       .about-visual {
@@ -1151,6 +1303,11 @@
       .about-visual {
         min-height: 300px;
       }
+
+      .gallery-item {
+        width: 250px;
+        height: 180px;
+      }
     }
 
     /* =========================
@@ -1165,6 +1322,10 @@
 
       .logo-3d-wrapper {
         transition: none !important;
+      }
+
+      .gallery-track {
+        animation-play-state: paused;
       }
 
     }
@@ -1201,6 +1362,10 @@
 
         <li>
           <a href="#servicos">Serviços</a>
+        </li>
+
+        <li>
+          <a href="#galeria">Trabalhos</a>
         </li>
 
         <li>
@@ -1359,183 +1524,252 @@
     <div class="service-grid">
 
       <article class="service">
-
         <div class="service-icon">⌖</div>
-
-        <h3>
-          Georreferenciamento
-        </h3>
-
+        <h3>Georreferenciamento</h3>
         <p>
           Levantamento e posicionamento preciso de imóveis e áreas.
         </p>
-
       </article>
 
-
       <article class="service">
-
         <div class="service-icon">▣</div>
-
-        <h3>
-          Regularização de Área
-        </h3>
-
+        <h3>Regularização de Área</h3>
         <p>
           Suporte técnico para regularização e adequação de propriedades.
         </p>
-
       </article>
 
-
       <article class="service">
-
         <div class="service-icon">⌁</div>
-
-        <h3>
-          Levantamento Planialtimétrico
-        </h3>
-
+        <h3>Levantamento Planialtimétrico</h3>
         <p>
           Representação detalhada do terreno e suas características.
         </p>
-
       </article>
 
-
       <article class="service">
-
         <div class="service-icon">＋</div>
-
-        <h3>
-          Desmembramento
-        </h3>
-
+        <h3>Desmembramento</h3>
         <p>
           Divisão técnica de áreas conforme as necessidades do projeto.
         </p>
-
       </article>
 
-
       <article class="service">
-
         <div class="service-icon">◇</div>
-
-        <h3>
-          Demarcação de Divisas
-        </h3>
-
+        <h3>Demarcação de Divisas</h3>
         <p>
           Identificação e materialização dos limites de propriedades.
         </p>
-
       </article>
 
-
       <article class="service">
-
         <div class="service-icon">▤</div>
-
-        <h3>
-          Loteamentos
-        </h3>
-
+        <h3>Loteamentos</h3>
         <p>
           Levantamentos e projetos para organização e implantação de lotes.
         </p>
-
       </article>
 
-
       <article class="service">
-
         <div class="service-icon">◫</div>
-
-        <h3>
-          Usucapião
-        </h3>
-
+        <h3>Usucapião</h3>
         <p>
           Levantamentos e documentação técnica para processos de usucapião.
         </p>
-
       </article>
 
-
       <article class="service">
-
         <div class="service-icon">◎</div>
-
-        <h3>
-          Retificação e Unificação
-        </h3>
-
+        <h3>Retificação e Unificação</h3>
         <p>
           Serviços técnicos para correção e integração de áreas.
         </p>
-
       </article>
 
-
       <article class="service">
-
         <div class="service-icon">▥</div>
-
-        <h3>
-          Certificação INCRA / SIGEF
-        </h3>
-
+        <h3>Certificação INCRA / SIGEF</h3>
         <p>
           Serviços relacionados à certificação de imóveis rurais.
         </p>
-
       </article>
 
-
       <article class="service">
-
         <div class="service-icon">⌂</div>
-
-        <h3>
-          Locações
-        </h3>
-
+        <h3>Locações</h3>
         <p>
           Locação e marcação de pontos para obras e projetos.
         </p>
-
       </article>
 
-
       <article class="service">
-
         <div class="service-icon">⌘</div>
-
-        <h3>
-          Projetos
-        </h3>
-
+        <h3>Projetos</h3>
         <p>
           Elaboração e consultoria técnica para diferentes necessidades.
         </p>
-
       </article>
 
-
       <article class="service">
-
         <div class="service-icon">✓</div>
-
-        <h3>
-          Consultoria
-        </h3>
-
+        <h3>Consultoria</h3>
         <p>
           Orientação técnica para encontrar a solução adequada ao seu imóvel.
         </p>
-
       </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     GALERIA DE TRABALHOS
+========================= -->
+
+<section class="gallery" id="galeria">
+
+  <div class="container">
+
+    <div class="gallery-head">
+
+      <div class="section-label">
+        Nossos trabalhos
+      </div>
+
+      <h2>
+        Precisão que pode ser vista na prática.
+      </h2>
+
+      <p>
+        Confira alguns registros dos trabalhos realizados pela
+        EGA Topografia e Projetos.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="gallery-track-wrapper">
+
+    <div class="gallery-track">
+
+      <!-- PRIMEIRA SEQUÊNCIA -->
+
+      <div class="gallery-item">
+
+        <img
+          src="obra1.jpg"
+          alt="Obra realizada pela EGA Topografia e Projetos">
+
+        <div class="gallery-overlay">
+          EGA Topografia e Projetos
+        </div>
+
+      </div>
+
+
+      <div class="gallery-item">
+
+        <img
+          src="obra2.jpg"
+          alt="Obra realizada pela EGA Topografia e Projetos">
+
+        <div class="gallery-overlay">
+          Levantamento topográfico
+        </div>
+
+      </div>
+
+
+      <div class="gallery-item">
+
+        <img
+          src="obra3.jpg"
+          alt="Obra realizada pela EGA Topografia e Projetos">
+
+        <div class="gallery-overlay">
+          Serviços de topografia
+        </div>
+
+      </div>
+
+
+      <div class="gallery-item">
+
+        <img
+          src="obra4.jpg"
+          alt="Obra realizada pela EGA Topografia e Projetos">
+
+        <div class="gallery-overlay">
+          Levantamento de área
+        </div>
+
+      </div>
+
+
+      <div class="gallery-item">
+
+        <img
+          src="obra5.jpg"
+          alt="Obra realizada pela EGA Topografia e Projetos">
+
+        <div class="gallery-overlay">
+          Trabalho técnico
+        </div>
+
+      </div>
+
+
+      <!-- SEGUNDA SEQUÊNCIA -->
+
+      <div class="gallery-item">
+
+        <img
+          src="obra1.jpg"
+          alt="Obra realizada pela EGA Topografia e Projetos">
+
+      </div>
+
+
+      <div class="gallery-item">
+
+        <img
+          src="obra2.jpg"
+          alt="Obra realizada pela EGA Topografia e Projetos">
+
+      </div>
+
+
+      <div class="gallery-item">
+
+        <img
+          src="obra3.jpg"
+          alt="Obra realizada pela EGA Topografia e Projetos">
+
+      </div>
+
+
+      <div class="gallery-item">
+
+        <img
+          src="obra4.jpg"
+          alt="Obra realizada pela EGA Topografia e Projetos">
+
+      </div>
+
+
+      <div class="gallery-item">
+
+        <img
+          src="obra5.jpg"
+          alt="Obra realizada pela EGA Topografia e Projetos">
+
+      </div>
 
     </div>
 
@@ -1552,11 +1786,6 @@
 
   <div class="container about-grid">
 
-
-    <!-- =========================
-         NOVO LOGO 3D
-    ========================= -->
-
     <div
       class="about-visual"
       id="logo3DScene">
@@ -1572,58 +1801,30 @@
         class="logo-3d-wrapper"
         id="logo3DWrapper">
 
-
         <div class="logo-3d-depth depth-1">
-
-          <img
-            src="logo.png"
-            alt="">
-
+          <img src="logo.png" alt="">
         </div>
-
 
         <div class="logo-3d-depth depth-2">
-
-          <img
-            src="logo.png"
-            alt="">
-
+          <img src="logo.png" alt="">
         </div>
-
 
         <div class="logo-3d-depth depth-3">
-
-          <img
-            src="logo.png"
-            alt="">
-
+          <img src="logo.png" alt="">
         </div>
-
 
         <div class="logo-3d-depth depth-4">
-
-          <img
-            src="logo.png"
-            alt="">
-
+          <img src="logo.png" alt="">
         </div>
-
 
         <div class="logo-3d-depth depth-5">
-
-          <img
-            src="logo.png"
-            alt="">
-
+          <img src="logo.png" alt="">
         </div>
 
-
         <div class="logo-3d-face">
-
           <img
             src="logo.png"
             alt="EGA Topografia e Projetos">
-
         </div>
 
       </div>
@@ -1650,8 +1851,6 @@
 
     </div>
 
-
-    <!-- TEXTO -->
 
     <div class="about-text">
 
@@ -1791,7 +1990,6 @@
 
     <div class="contact-grid">
 
-
       <div class="contact-info">
 
         <h3>
@@ -1912,11 +2110,6 @@
 
   if (!scene || !logo) return;
 
-
-  /* =====================================
-     CONFIGURAÇÕES
-  ===================================== */
-
   let rotationY = 0;
   let rotationX = 0;
   let rotationZ = 0;
@@ -1925,13 +2118,12 @@
   let targetTiltY = 0;
 
   let lastScroll = window.scrollY;
-
   let scrollVelocity = 0;
 
 
-  /* =====================================
+  /* =========================
      MOUSE
-  ===================================== */
+  ========================= */
 
   scene.addEventListener("mousemove", function(event) {
 
@@ -1945,11 +2137,6 @@
       (event.clientY - rect.top) /
       rect.height;
 
-
-    /*
-     * Inclinação 3D
-     */
-
     targetTiltY =
       (x - 0.5) * 35;
 
@@ -1959,9 +2146,9 @@
   });
 
 
-  /* =====================================
-     QUANDO SAI COM O MOUSE
-  ===================================== */
+  /* =========================
+     MOUSE FORA
+  ========================= */
 
   scene.addEventListener("mouseleave", function() {
 
@@ -1971,9 +2158,9 @@
   });
 
 
-  /* =====================================
+  /* =========================
      SCROLL
-  ===================================== */
+  ========================= */
 
   window.addEventListener(
     "scroll",
@@ -1984,15 +2171,8 @@
       const difference =
         currentScroll - lastScroll;
 
-
-      /*
-       * Quanto mais rápido o scroll,
-       * mais o logo gira.
-       */
-
       scrollVelocity =
         difference * 0.45;
-
 
       lastScroll =
         currentScroll;
@@ -2004,67 +2184,33 @@
   );
 
 
-  /* =====================================
+  /* =========================
      ANIMAÇÃO
-  ===================================== */
+  ========================= */
 
   function animate() {
 
-
-    /*
-     * ROTAÇÃO AUTOMÁTICA
-     *
-     * Esse valor está propositalmente
-     * maior para ficar visível.
-     */
-
-    rotationY += 0.45;
-
-
-    /*
-     * O scroll também influencia
-     * diretamente a rotação.
-     */
+    rotationY += 0.8;
 
     rotationY += scrollVelocity;
 
-
-    /*
-     * Desaceleração do scroll
-     */
-
     scrollVelocity *= 0.90;
-
-
-    /*
-     * Pequena rotação no eixo Z
-     */
 
     rotationZ =
       Math.sin(rotationY * Math.PI / 180) * 8;
 
-
-    /*
-     * Movimento suave do mouse
-     */
-
     rotationX +=
       (targetTiltX - rotationX) * 0.08;
-
 
     const mouseY =
       targetTiltY;
 
 
-    /*
-     * APLICA O 3D
-     */
-
     logo.style.transform =
       "perspective(900px) " +
 
       "rotateX(" +
-      rotationX +
+      (rotationX + 12) +
       "deg) " +
 
       "rotateY(" +
