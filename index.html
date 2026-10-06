@@ -27,6 +27,7 @@
       color: #10243b;
       background: #fff;
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
     a {
@@ -415,13 +416,13 @@
 
     .gallery {
       background: #fff;
-      padding: 90px 0;
+      padding: 95px 0;
       overflow: hidden;
     }
 
     .gallery-head {
       max-width: 720px;
-      margin-bottom: 40px;
+      margin-bottom: 45px;
     }
 
     .gallery-head p {
@@ -432,16 +433,19 @@
       width: 100%;
       overflow: hidden;
       position: relative;
+      padding: 8px 0 25px;
     }
+
+    /* SOMBRAS NAS LATERAIS */
 
     .gallery-track-wrapper::before,
     .gallery-track-wrapper::after {
       content: "";
       position: absolute;
       top: 0;
-      width: 120px;
-      height: 100%;
-      z-index: 3;
+      bottom: 0;
+      width: 140px;
+      z-index: 5;
       pointer-events: none;
     }
 
@@ -450,8 +454,8 @@
       background: linear-gradient(
         90deg,
         #fff 0%,
-        rgba(255,255,255,.85) 25%,
-        transparent 100%
+        rgba(255,255,255,.9) 20%,
+        rgba(255,255,255,0) 100%
       );
     }
 
@@ -460,37 +464,51 @@
       background: linear-gradient(
         270deg,
         #fff 0%,
-        rgba(255,255,255,.85) 25%,
-        transparent 100%
+        rgba(255,255,255,.9) 20%,
+        rgba(255,255,255,0) 100%
       );
     }
+
+    /* TRACK */
 
     .gallery-track {
       display: flex;
       width: max-content;
-      gap: 20px;
-      animation: galleryMove 35s linear infinite;
       will-change: transform;
+
+      animation:
+        galleryMove 32s linear infinite;
     }
 
     .gallery-track:hover {
       animation-play-state: paused;
     }
 
-    .gallery-item {
-      width: 360px;
-      height: 250px;
-      flex-shrink: 0;
+    /* CADA GRUPO TEM EXATAMENTE A MESMA LARGURA */
 
-      border-radius: 14px;
+    .gallery-group {
+      display: flex;
+      gap: 24px;
+      padding-right: 24px;
+      flex-shrink: 0;
+    }
+
+    /* FOTOS GRANDES */
+
+    .gallery-item {
+      width: 500px;
+      height: 340px;
+      flex: 0 0 500px;
+
+      border-radius: 18px;
       overflow: hidden;
 
       background: #fff;
 
-      border: 1px solid #dfe7ed;
+      border: 1px solid #dce5ec;
 
       box-shadow:
-        0 10px 30px rgba(4, 28, 55, .10);
+        0 15px 40px rgba(4, 28, 55, .14);
 
       position: relative;
     }
@@ -500,11 +518,14 @@
       height: 100%;
       object-fit: cover;
 
-      transition: transform .5s ease;
+      transition:
+        transform .6s ease,
+        filter .4s ease;
     }
 
     .gallery-item:hover img {
-      transform: scale(1.06);
+      transform: scale(1.07);
+      filter: brightness(1.04);
     }
 
     .gallery-overlay {
@@ -513,34 +534,39 @@
       right: 0;
       bottom: 0;
 
-      padding: 35px 20px 18px;
+      padding: 65px 25px 22px;
 
       background: linear-gradient(
         transparent,
-        rgba(3,18,37,.85)
+        rgba(3,18,37,.9)
       );
 
       color: #fff;
 
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 700;
 
       opacity: 0;
-      transition: .3s;
+      transform: translateY(8px);
+
+      transition: .35s;
     }
 
     .gallery-item:hover .gallery-overlay {
       opacity: 1;
+      transform: translateY(0);
     }
+
+    /* MOVIMENTO CONTÍNUO */
 
     @keyframes galleryMove {
 
-      from {
+      0% {
         transform: translateX(0);
       }
 
-      to {
-        transform: translateX(calc(-50% - 10px));
+      100% {
+        transform: translateX(-50%);
       }
 
     }
@@ -1016,25 +1042,164 @@
        WHATSAPP
     ========================= */
 
-    .whatsapp-float {
+    .whatsapp-area {
       position: fixed;
       right: 20px;
       bottom: 20px;
       z-index: 1001;
-      width: 58px;
-      height: 58px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    /* BALÃO */
+
+    .whatsapp-bubble {
+      position: relative;
+
+      background: #fff;
+      color: #173149;
+
+      padding: 13px 18px;
+
+      border-radius: 14px;
+
+      box-shadow:
+        0 10px 30px rgba(0,0,0,.18);
+
+      border: 1px solid #e4e9ed;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      opacity: 0;
+      transform:
+        translateY(12px)
+        scale(.94);
+
+      pointer-events: none;
+
+      transition:
+        opacity .35s ease,
+        transform .35s ease;
+    }
+
+    /* TRIÂNGULO DO BALÃO */
+
+    .whatsapp-bubble::after {
+      content: "";
+
+      position: absolute;
+
+      right: 22px;
+      bottom: -8px;
+
+      width: 16px;
+      height: 16px;
+
+      background: #fff;
+
+      border-right: 1px solid #e4e9ed;
+      border-bottom: 1px solid #e4e9ed;
+
+      transform: rotate(45deg);
+    }
+
+    .whatsapp-bubble.show {
+      opacity: 1;
+
+      transform:
+        translateY(0)
+        scale(1);
+
+      pointer-events: auto;
+    }
+
+    .whatsapp-bubble strong {
+      color: #25d366;
+    }
+
+    .whatsapp-bubble span {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      color: #718090;
+      margin-top: 2px;
+    }
+
+    /* BOTÃO */
+
+    .whatsapp-float {
+      width: 60px;
+      height: 60px;
+
       border-radius: 50%;
+
       background: #25d366;
       color: #fff;
+
       display: grid;
       place-items: center;
-      font-size: 27px;
-      box-shadow: 0 10px 25px rgba(0,0,0,.22);
-      transition: .2s;
+
+      box-shadow:
+        0 10px 25px rgba(0,0,0,.22);
+
+      transition:
+        transform .2s,
+        box-shadow .2s;
+
+      position: relative;
+    }
+
+    .whatsapp-float::before {
+      content: "";
+
+      position: absolute;
+
+      inset: -5px;
+
+      border-radius: 50%;
+
+      border: 2px solid rgba(37,211,102,.28);
+
+      animation: whatsappPulse 2.2s infinite;
     }
 
     .whatsapp-float:hover {
       transform: scale(1.08);
+
+      box-shadow:
+        0 14px 30px rgba(0,0,0,.28);
+    }
+
+    .whatsapp-icon {
+      width: 30px;
+      height: 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes whatsappPulse {
+
+      0% {
+        transform: scale(.95);
+        opacity: .8;
+      }
+
+      70% {
+        transform: scale(1.18);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1.18);
+        opacity: 0;
+      }
+
     }
 
     /* =========================
@@ -1085,6 +1250,15 @@
         width: 420px;
         height: 200px;
       }
+
+      /* GALERIA TABLET */
+
+      .gallery-item {
+        width: 440px;
+        height: 310px;
+        flex-basis: 440px;
+      }
+
     }
 
     /* =========================
@@ -1186,25 +1360,52 @@
         text-align: center;
       }
 
-      /* GALERIA */
+      /* =========================
+         GALERIA CELULAR
+      ========================= */
 
       .gallery {
-        padding: 65px 0;
+        padding: 70px 0;
       }
 
-      .gallery-item {
-        width: 280px;
-        height: 200px;
+      .gallery-head {
+        margin-bottom: 32px;
+      }
+
+      .gallery-track-wrapper {
+        padding: 5px 0 20px;
       }
 
       .gallery-track {
-        gap: 14px;
-        animation-duration: 28s;
+        animation-duration: 25s;
+      }
+
+      .gallery-group {
+        gap: 16px;
+        padding-right: 16px;
+      }
+
+      .gallery-item {
+        width: 82vw;
+        max-width: 390px;
+        height: 275px;
+        flex: 0 0 82vw;
+        max-height: 275px;
+        border-radius: 15px;
+      }
+
+      .gallery-overlay {
+        opacity: 1;
+        transform: translateY(0);
+
+        padding: 45px 18px 15px;
+
+        font-size: 12px;
       }
 
       .gallery-track-wrapper::before,
       .gallery-track-wrapper::after {
-        width: 60px;
+        width: 35px;
       }
 
       /* LOGO 3D NO CELULAR */
@@ -1257,6 +1458,24 @@
         bottom: 48px;
         width: 140px;
       }
+
+      /* WHATSAPP */
+
+      .whatsapp-area {
+        right: 15px;
+        bottom: 15px;
+      }
+
+      .whatsapp-float {
+        width: 56px;
+        height: 56px;
+      }
+
+      .whatsapp-bubble {
+        font-size: 12px;
+        padding: 11px 15px;
+      }
+
     }
 
     /* =========================
@@ -1305,9 +1524,15 @@
       }
 
       .gallery-item {
-        width: 250px;
-        height: 180px;
+        width: 84vw;
+        flex-basis: 84vw;
+        height: 250px;
       }
+
+      .whatsapp-bubble {
+        max-width: 230px;
+      }
+
     }
 
     /* =========================
@@ -1326,6 +1551,10 @@
 
       .gallery-track {
         animation-play-state: paused;
+      }
+
+      .whatsapp-float::before {
+        animation: none;
       }
 
     }
@@ -1658,116 +1887,124 @@
 
     <div class="gallery-track">
 
-      <!-- PRIMEIRA SEQUÊNCIA -->
+      <!-- GRUPO 1 -->
 
-      <div class="gallery-item">
+      <div class="gallery-group">
 
-        <img
-          src="obra1.jpg"
-          alt="Obra realizada pela EGA Topografia e Projetos">
+        <div class="gallery-item">
 
-        <div class="gallery-overlay">
-          EGA Topografia e Projetos
+          <img
+            src="obra1.jpg"
+            alt="Obra realizada pela EGA Topografia e Projetos">
+
+          <div class="gallery-overlay">
+            EGA Topografia e Projetos
+          </div>
+
+        </div>
+
+
+        <div class="gallery-item">
+
+          <img
+            src="obra2.jpg"
+            alt="Obra realizada pela EGA Topografia e Projetos">
+
+          <div class="gallery-overlay">
+            Levantamento topográfico
+          </div>
+
+        </div>
+
+
+        <div class="gallery-item">
+
+          <img
+            src="obra3.jpg"
+            alt="Obra realizada pela EGA Topografia e Projetos">
+
+          <div class="gallery-overlay">
+            Serviços de topografia
+          </div>
+
+        </div>
+
+
+        <div class="gallery-item">
+
+          <img
+            src="obra4.jpg"
+            alt="Obra realizada pela EGA Topografia e Projetos">
+
+          <div class="gallery-overlay">
+            Levantamento de área
+          </div>
+
+        </div>
+
+
+        <div class="gallery-item">
+
+          <img
+            src="obra5.jpg"
+            alt="Obra realizada pela EGA Topografia e Projetos">
+
+          <div class="gallery-overlay">
+            Trabalho técnico
+          </div>
+
         </div>
 
       </div>
 
 
-      <div class="gallery-item">
+      <!-- GRUPO 2 - DUPLICADO PARA LOOP INFINITO -->
 
-        <img
-          src="obra2.jpg"
-          alt="Obra realizada pela EGA Topografia e Projetos">
+      <div class="gallery-group">
 
-        <div class="gallery-overlay">
-          Levantamento topográfico
+        <div class="gallery-item">
+
+          <img
+            src="obra1.jpg"
+            alt="Obra realizada pela EGA Topografia e Projetos">
+
         </div>
 
-      </div>
 
+        <div class="gallery-item">
 
-      <div class="gallery-item">
+          <img
+            src="obra2.jpg"
+            alt="Obra realizada pela EGA Topografia e Projetos">
 
-        <img
-          src="obra3.jpg"
-          alt="Obra realizada pela EGA Topografia e Projetos">
-
-        <div class="gallery-overlay">
-          Serviços de topografia
         </div>
 
-      </div>
 
+        <div class="gallery-item">
 
-      <div class="gallery-item">
+          <img
+            src="obra3.jpg"
+            alt="Obra realizada pela EGA Topografia e Projetos">
 
-        <img
-          src="obra4.jpg"
-          alt="Obra realizada pela EGA Topografia e Projetos">
-
-        <div class="gallery-overlay">
-          Levantamento de área
         </div>
 
-      </div>
 
+        <div class="gallery-item">
 
-      <div class="gallery-item">
+          <img
+            src="obra4.jpg"
+            alt="Obra realizada pela EGA Topografia e Projetos">
 
-        <img
-          src="obra5.jpg"
-          alt="Obra realizada pela EGA Topografia e Projetos">
-
-        <div class="gallery-overlay">
-          Trabalho técnico
         </div>
 
-      </div>
 
+        <div class="gallery-item">
 
-      <!-- SEGUNDA SEQUÊNCIA -->
+          <img
+            src="obra5.jpg"
+            alt="Obra realizada pela EGA Topografia e Projetos">
 
-      <div class="gallery-item">
-
-        <img
-          src="obra1.jpg"
-          alt="Obra realizada pela EGA Topografia e Projetos">
-
-      </div>
-
-
-      <div class="gallery-item">
-
-        <img
-          src="obra2.jpg"
-          alt="Obra realizada pela EGA Topografia e Projetos">
-
-      </div>
-
-
-      <div class="gallery-item">
-
-        <img
-          src="obra3.jpg"
-          alt="Obra realizada pela EGA Topografia e Projetos">
-
-      </div>
-
-
-      <div class="gallery-item">
-
-        <img
-          src="obra4.jpg"
-          alt="Obra realizada pela EGA Topografia e Projetos">
-
-      </div>
-
-
-      <div class="gallery-item">
-
-        <img
-          src="obra5.jpg"
-          alt="Obra realizada pela EGA Topografia e Projetos">
+        </div>
 
       </div>
 
@@ -2083,25 +2320,56 @@
 
 
 <!-- =========================
-     WHATSAPP FLUTUANTE
+     WHATSAPP FLUTUANTE + BALÃO
 ========================= -->
 
-<a
-  class="whatsapp-float"
-  href="https://wa.me/5515998440341?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento."
-  target="_blank"
-  aria-label="Falar no WhatsApp">
+<div class="whatsapp-area">
 
-  ☏
+  <div
+    class="whatsapp-bubble"
+    id="whatsappBubble">
 
-</a>
+    <strong>Olá! Precisa de ajuda?</strong>
+
+    <span>
+      Fale com a EGA pelo WhatsApp
+    </span>
+
+  </div>
+
+
+  <a
+    class="whatsapp-float"
+    href="https://wa.me/5515998440341?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento."
+    target="_blank"
+    aria-label="Falar no WhatsApp">
+
+    <svg
+      class="whatsapp-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+
+      <path
+        d="M20.52 3.48A11.86 11.86 0 0 0 12.08 0C5.52 0 .18 5.34.18 11.9c0 2.1.55 4.15 1.6 5.96L.08 24l6.28-1.65a11.9 11.9 0 0 0 5.72 1.46h.01c6.56 0 11.9-5.34 11.9-11.9 0-3.18-1.24-6.17-3.47-8.43ZM12.09 21.8h-.01a9.88 9.88 0 0 1-5.03-1.38l-.36-.21-3.73.98 1-3.64-.23-.37a9.88 9.88 0 0 1-1.51-5.28c0-5.47 4.45-9.92 9.93-9.92a9.86 9.86 0 0 1 7.02 2.91 9.88 9.88 0 0 1 2.9 7.03c0 5.47-4.45 9.92-9.92 9.92Zm5.44-7.43c-.3-.15-1.78-.88-2.05-.98-.28-.1-.47-.15-.67.15-.2.3-.77.98-.94 1.18-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.79-1.47-1.76-1.64-2.06-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.21 5.09 4.5.71.31 1.26.5 1.69.64.71.23 1.36.2 1.87.12.57-.09 1.78-.73 2.03-1.43.25-.7.25-1.3.17-1.43-.07-.12-.27-.2-.57-.35Z"
+        fill="white"/>
+
+    </svg>
+
+  </a>
+
+</div>
 
 
 <!-- =========================
-     JAVASCRIPT - LOGO 3D
+     JAVASCRIPT
 ========================= -->
 
 <script>
+
+/* =========================
+   LOGO 3D
+========================= */
 
 (function () {
 
@@ -2121,9 +2389,7 @@
   let scrollVelocity = 0;
 
 
-  /* =========================
-     MOUSE
-  ========================= */
+  /* MOUSE */
 
   scene.addEventListener("mousemove", function(event) {
 
@@ -2146,9 +2412,7 @@
   });
 
 
-  /* =========================
-     MOUSE FORA
-  ========================= */
+  /* MOUSE FORA */
 
   scene.addEventListener("mouseleave", function() {
 
@@ -2158,9 +2422,7 @@
   });
 
 
-  /* =========================
-     SCROLL
-  ========================= */
+  /* SCROLL */
 
   window.addEventListener(
     "scroll",
@@ -2184,9 +2446,7 @@
   );
 
 
-  /* =========================
-     ANIMAÇÃO
-  ========================= */
+  /* ANIMAÇÃO */
 
   function animate() {
 
@@ -2228,6 +2488,47 @@
 
 
   animate();
+
+})();
+
+
+/* =========================
+   BALÃO WHATSAPP
+========================= */
+
+(function () {
+
+  const bubble =
+    document.getElementById("whatsappBubble");
+
+  if (!bubble) return;
+
+
+  /* APARECE APÓS A ENTRADA */
+
+  setTimeout(function () {
+
+    bubble.classList.add("show");
+
+  }, 1200);
+
+
+  /* ESCONDE DEPOIS DE 7 SEGUNDOS */
+
+  setTimeout(function () {
+
+    bubble.classList.remove("show");
+
+  }, 8500);
+
+
+  /* VOLTA DEPOIS DE 18 SEGUNDOS */
+
+  setTimeout(function () {
+
+    bubble.classList.add("show");
+
+  }, 18000);
 
 })();
 
