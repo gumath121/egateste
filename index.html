@@ -1913,65 +1913,67 @@
   if (!scene || !logo) return;
 
 
-  const reduceMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
+  /* =====================================
+     CONFIGURAÇÕES
+  ===================================== */
 
+  let rotationY = 0;
+  let rotationX = 0;
+  let rotationZ = 0;
 
-  let mouseX = 0;
-  let mouseY = 0;
-
-  let targetX = 0;
-  let targetY = 0;
-
-  let currentX = 0;
-  let currentY = 0;
-
-  let scrollRotation = 0;
-
-  let autoRotation = 0;
+  let targetTiltX = 0;
+  let targetTiltY = 0;
 
   let lastScroll = window.scrollY;
 
+  let scrollVelocity = 0;
 
-  /* =========================
-     MOVIMENTO DO MOUSE
-  ========================= */
+
+  /* =====================================
+     MOUSE
+  ===================================== */
 
   scene.addEventListener("mousemove", function(event) {
 
     const rect = scene.getBoundingClientRect();
 
-    mouseX =
+    const x =
       (event.clientX - rect.left) /
-      rect.width -
-      0.5;
+      rect.width;
 
-    mouseY =
+    const y =
       (event.clientY - rect.top) /
-      rect.height -
-      0.5;
+      rect.height;
 
 
-    targetY = mouseX * 22;
+    /*
+     * Inclinação 3D
+     */
 
-    targetX = -mouseY * 18;
+    targetTiltY =
+      (x - 0.5) * 35;
+
+    targetTiltX =
+      (0.5 - y) * 30;
 
   });
 
+
+  /* =====================================
+     QUANDO SAI COM O MOUSE
+  ===================================== */
 
   scene.addEventListener("mouseleave", function() {
 
-    targetX = 0;
-
-    targetY = 0;
+    targetTiltX = 0;
+    targetTiltY = 0;
 
   });
 
 
-  /* =========================
+  /* =====================================
      SCROLL
-  ========================= */
+  ===================================== */
 
   window.addEventListener(
     "scroll",
@@ -1983,11 +1985,17 @@
         currentScroll - lastScroll;
 
 
-      scrollRotation +=
-        difference * 0.18;
+      /*
+       * Quanto mais rápido o scroll,
+       * mais o logo gira.
+       */
+
+      scrollVelocity =
+        difference * 0.45;
 
 
-      lastScroll = currentScroll;
+      lastScroll =
+        currentScroll;
 
     },
     {
@@ -1996,78 +2004,76 @@
   );
 
 
-  /* =========================
+  /* =====================================
      ANIMAÇÃO
-  ========================= */
+  ===================================== */
 
   function animate() {
 
 
-    if (!reduceMotion) {
+    /*
+     * ROTAÇÃO AUTOMÁTICA
+     *
+     * Esse valor está propositalmente
+     * maior para ficar visível.
+     */
+
+    rotationY += 0.45;
 
 
-      /*
-       * Rotação automática
-       */
+    /*
+     * O scroll também influencia
+     * diretamente a rotação.
+     */
 
-      autoRotation += 0.12;
-
-
-      /*
-       * Suavização do mouse
-       */
-
-      currentX +=
-        (targetX - currentX) * 0.08;
+    rotationY += scrollVelocity;
 
 
-      currentY +=
-        (targetY - currentY) * 0.08;
+    /*
+     * Desaceleração do scroll
+     */
+
+    scrollVelocity *= 0.90;
 
 
-      /*
-       * Evita números gigantes
-       */
+    /*
+     * Pequena rotação no eixo Z
+     */
 
-      if (scrollRotation > 36000) {
-
-        scrollRotation -= 36000;
-
-      }
+    rotationZ =
+      Math.sin(rotationY * Math.PI / 180) * 8;
 
 
-      if (scrollRotation < -36000) {
+    /*
+     * Movimento suave do mouse
+     */
 
-        scrollRotation += 36000;
+    rotationX +=
+      (targetTiltX - rotationX) * 0.08;
 
-      }
+
+    const mouseY =
+      targetTiltY;
 
 
-      /*
-       * Movimento final
-       */
+    /*
+     * APLICA O 3D
+     */
 
-      logo.style.transform =
+    logo.style.transform =
+      "perspective(900px) " +
 
-        "rotateX(" +
-        currentX +
-        "deg) " +
+      "rotateX(" +
+      rotationX +
+      "deg) " +
 
-        "rotateY(" +
-        (
-          currentY +
-          autoRotation +
-          scrollRotation
-        ) +
-        "deg) " +
+      "rotateY(" +
+      (rotationY + mouseY) +
+      "deg) " +
 
-        "rotateZ(" +
-        (
-          scrollRotation * 0.08
-        ) +
-        "deg)";
-
-    }
+      "rotateZ(" +
+      rotationZ +
+      "deg)";
 
 
     requestAnimationFrame(animate);
