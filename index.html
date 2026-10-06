@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
+
     * {
       margin: 0;
       padding: 0;
@@ -188,12 +189,6 @@
 
       pointer-events: none;
     }
-
-    /*
-      NOVO:
-      Hero dividido em duas colunas.
-      Texto à esquerda e foto à direita.
-    */
 
     .hero-content {
       position: relative;
@@ -432,103 +427,292 @@
       align-items: center;
     }
 
+    /* =========================
+       NOVO LOGO 3D
+    ========================= */
+
     .about-visual {
       min-height: 430px;
       border-radius: 14px;
       overflow: hidden;
 
       background:
-        linear-gradient(
-          135deg,
-          rgba(4,27,53,.96),
-          rgba(7,127,193,.68)
-        ),
         radial-gradient(
           circle at 50% 50%,
-          #fff,
-          transparent 25%
+          rgba(8,127,193,.35),
+          transparent 42%
+        ),
+        linear-gradient(
+          135deg,
+          rgba(4,27,53,.98),
+          rgba(7,127,193,.72)
         );
 
       position: relative;
-      display: grid;
-      place-items: center;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      perspective: 1000px;
+      perspective-origin: center center;
+
+      isolation: isolate;
     }
 
-    .compass {
-      width: 260px;
-      height: 260px;
-      border: 2px solid rgba(255,255,255,.6);
-      border-radius: 50%;
-      position: relative;
+    /* brilho atrás do logo */
 
-      box-shadow:
-        0 0 0 25px rgba(255,255,255,.04),
-        0 0 0 50px rgba(255,255,255,.025);
-    }
-
-    .compass::before,
-    .compass::after {
+    .about-visual::before {
       content: "";
       position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%,-50%);
-      background: rgba(255,255,255,.75);
-    }
 
-    .compass::before {
-      width: 1px;
-      height: 100%;
-    }
+      width: 280px;
+      height: 280px;
 
-    .compass::after {
-      width: 100%;
-      height: 1px;
-    }
-
-    .compass-center {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%,-50%);
-      width: 48px;
-      height: 48px;
       border-radius: 50%;
-      background: #fff;
-      border: 7px solid #087fc1;
-      z-index: 2;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(255,255,255,.15),
+          transparent 68%
+        );
+
+      filter: blur(8px);
+
+      pointer-events: none;
+      z-index: 0;
     }
 
-    .direction {
+    /* =========================
+       LINHAS TOPOGRÁFICAS
+    ========================= */
+
+    .topo-lines {
       position: absolute;
-      color: #fff;
+
+      border: 1px solid rgba(255,255,255,.13);
+
+      border-radius: 50%;
+
+      pointer-events: none;
+
+      transform:
+        rotateX(65deg)
+        rotateZ(-15deg);
+
+      z-index: 1;
+    }
+
+    .topo-lines-1 {
+      width: 320px;
+      height: 150px;
+    }
+
+    .topo-lines-2 {
+      width: 410px;
+      height: 190px;
+    }
+
+    .topo-lines-3 {
+      width: 500px;
+      height: 235px;
+
+      opacity: .55;
+    }
+
+    /* =========================
+       OBJETO 3D
+    ========================= */
+
+    .logo-3d-wrapper {
+      width: 250px;
+      height: 250px;
+
+      position: relative;
+
+      transform-style: preserve-3d;
+
+      will-change: transform;
+
+      z-index: 5;
+
+      transition: transform .12s ease-out;
+
+      transform:
+        rotateX(0deg)
+        rotateY(0deg)
+        rotateZ(0deg);
+    }
+
+    .logo-3d-wrapper img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: contain;
+
+      display: block;
+
+      pointer-events: none;
+
+      user-select: none;
+    }
+
+    .logo-3d-depth,
+    .logo-3d-face {
+      position: absolute;
+
+      inset: 0;
+
+      transform-style: preserve-3d;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* =========================
+       PROFUNDIDADE DO LOGO
+    ========================= */
+
+    .depth-1 {
+      transform:
+        translateZ(-18px)
+        translate(10px, 10px);
+
+      opacity: .18;
+
+      filter: brightness(.30);
+    }
+
+    .depth-2 {
+      transform:
+        translateZ(-14px)
+        translate(8px, 8px);
+
+      opacity: .25;
+
+      filter: brightness(.40);
+    }
+
+    .depth-3 {
+      transform:
+        translateZ(-10px)
+        translate(6px, 6px);
+
+      opacity: .35;
+
+      filter: brightness(.48);
+    }
+
+    .depth-4 {
+      transform:
+        translateZ(-6px)
+        translate(4px, 4px);
+
+      opacity: .45;
+
+      filter: brightness(.60);
+    }
+
+    .depth-5 {
+      transform:
+        translateZ(-3px)
+        translate(2px, 2px);
+
+      opacity: .65;
+
+      filter: brightness(.75);
+    }
+
+    /* =========================
+       FRENTE DO LOGO
+    ========================= */
+
+    .logo-3d-face {
+      transform: translateZ(15px);
+
+      filter:
+        drop-shadow(0 15px 18px rgba(0,0,0,.35))
+        drop-shadow(0 0 18px rgba(255,255,255,.08));
+    }
+
+    /* =========================
+       SOMBRA
+    ========================= */
+
+    .logo-shadow {
+      position: absolute;
+
+      width: 190px;
+      height: 35px;
+
+      bottom: 62px;
+
+      border-radius: 50%;
+
+      background: rgba(0,0,0,.38);
+
+      filter: blur(18px);
+
+      transform:
+        rotateX(70deg);
+
+      opacity: .72;
+
+      z-index: 2;
+
+      pointer-events: none;
+    }
+
+    /* =========================
+       PONTOS CARDEAIS
+    ========================= */
+
+    .direction-3d {
+      position: absolute;
+
+      color: rgba(255,255,255,.82);
+
+      font-size: 13px;
+
       font-weight: 800;
-      font-size: 18px;
+
+      letter-spacing: 2px;
+
+      z-index: 8;
+
+      text-shadow:
+        0 2px 5px rgba(0,0,0,.3);
     }
 
-    .north {
-      top: -35px;
+    .direction-n {
+      top: 28px;
       left: 50%;
       transform: translateX(-50%);
     }
 
-    .south {
-      bottom: -35px;
+    .direction-s {
+      bottom: 28px;
       left: 50%;
       transform: translateX(-50%);
     }
 
-    .east {
-      right: -32px;
+    .direction-e {
+      right: 32px;
       top: 50%;
       transform: translateY(-50%);
     }
 
-    .west {
-      left: -32px;
+    .direction-w {
+      left: 32px;
       top: 50%;
       transform: translateY(-50%);
     }
+
+    /* =========================
+       SOBRE - TEXTO
+    ========================= */
 
     .about-text p {
       color: #647484;
@@ -750,6 +934,26 @@
       .about-visual {
         min-height: 340px;
       }
+
+      .logo-3d-wrapper {
+        width: 210px;
+        height: 210px;
+      }
+
+      .topo-lines-1 {
+        width: 270px;
+        height: 125px;
+      }
+
+      .topo-lines-2 {
+        width: 350px;
+        height: 160px;
+      }
+
+      .topo-lines-3 {
+        width: 420px;
+        height: 200px;
+      }
     }
 
     /* =========================
@@ -850,6 +1054,57 @@
         flex-direction: column;
         text-align: center;
       }
+
+      /* LOGO 3D NO CELULAR */
+
+      .about-visual {
+        min-height: 320px;
+      }
+
+      .logo-3d-wrapper {
+        width: 180px;
+        height: 180px;
+      }
+
+      .topo-lines-1 {
+        width: 230px;
+        height: 110px;
+      }
+
+      .topo-lines-2 {
+        width: 290px;
+        height: 135px;
+      }
+
+      .topo-lines-3 {
+        width: 350px;
+        height: 165px;
+      }
+
+      .direction-3d {
+        font-size: 10px;
+      }
+
+      .direction-n {
+        top: 20px;
+      }
+
+      .direction-s {
+        bottom: 20px;
+      }
+
+      .direction-e {
+        right: 20px;
+      }
+
+      .direction-w {
+        left: 20px;
+      }
+
+      .logo-shadow {
+        bottom: 48px;
+        width: 140px;
+      }
     }
 
     /* =========================
@@ -887,6 +1142,31 @@
       .btn {
         width: 100%;
       }
+
+      .logo-3d-wrapper {
+        width: 160px;
+        height: 160px;
+      }
+
+      .about-visual {
+        min-height: 300px;
+      }
+    }
+
+    /* =========================
+       ACESSIBILIDADE
+    ========================= */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      html {
+        scroll-behavior: auto;
+      }
+
+      .logo-3d-wrapper {
+        transition: none !important;
+      }
+
     }
 
   </style>
@@ -895,34 +1175,59 @@
 <body>
 
 <header>
+
   <div class="container nav">
 
     <a class="brand" href="#inicio">
-      <img src="logo.png" alt="EGA Topografia e Projetos">
+
+      <img
+        src="logo.png"
+        alt="EGA Topografia e Projetos">
+
       <span>
         EGA<br>
         TOPOGRAFIA E PROJETOS
       </span>
+
     </a>
 
     <nav>
+
       <ul>
-        <li><a href="#inicio">Início</a></li>
-        <li><a href="#servicos">Serviços</a></li>
-        <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#contato">Contato</a></li>
+
+        <li>
+          <a href="#inicio">Início</a>
+        </li>
+
+        <li>
+          <a href="#servicos">Serviços</a>
+        </li>
+
+        <li>
+          <a href="#sobre">Sobre</a>
+        </li>
+
+        <li>
+          <a href="#contato">Contato</a>
+        </li>
+
       </ul>
+
     </nav>
 
     <a
       class="nav-btn"
       href="https://wa.me/5515998440341?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento."
       target="_blank">
+
       ORÇAMENTO
+
     </a>
 
   </div>
+
 </header>
+
 
 <main>
 
@@ -936,7 +1241,6 @@
 
     <div class="hero-content">
 
-      <!-- TEXTO -->
       <div class="hero-text">
 
         <div class="eyebrow">
@@ -960,13 +1264,17 @@
             class="btn btn-primary"
             href="https://wa.me/5515998440341?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento."
             target="_blank">
+
             Solicitar orçamento
+
           </a>
 
           <a
             class="btn btn-outline"
             href="#servicos">
+
             Conheça os serviços
+
           </a>
 
         </div>
@@ -974,25 +1282,40 @@
         <div class="stats">
 
           <div class="stat">
+
             <strong>Precisão</strong>
-            <small>em cada levantamento</small>
+
+            <small>
+              em cada levantamento
+            </small>
+
           </div>
 
           <div class="stat">
+
             <strong>Projetos</strong>
-            <small>soluções completas</small>
+
+            <small>
+              soluções completas
+            </small>
+
           </div>
 
           <div class="stat">
+
             <strong>Atendimento</strong>
-            <small>personalizado</small>
+
+            <small>
+              personalizado
+            </small>
+
           </div>
 
         </div>
 
       </div>
 
-      <!-- FOTO DA TOPOGRAFIA -->
+
       <div class="hero-image">
 
         <img
@@ -1036,99 +1359,182 @@
     <div class="service-grid">
 
       <article class="service">
+
         <div class="service-icon">⌖</div>
-        <h3>Georreferenciamento</h3>
+
+        <h3>
+          Georreferenciamento
+        </h3>
+
         <p>
           Levantamento e posicionamento preciso de imóveis e áreas.
         </p>
+
       </article>
 
+
       <article class="service">
+
         <div class="service-icon">▣</div>
-        <h3>Regularização de Área</h3>
+
+        <h3>
+          Regularização de Área
+        </h3>
+
         <p>
           Suporte técnico para regularização e adequação de propriedades.
         </p>
+
       </article>
 
+
       <article class="service">
+
         <div class="service-icon">⌁</div>
-        <h3>Levantamento Planialtimétrico</h3>
+
+        <h3>
+          Levantamento Planialtimétrico
+        </h3>
+
         <p>
           Representação detalhada do terreno e suas características.
         </p>
+
       </article>
 
+
       <article class="service">
+
         <div class="service-icon">＋</div>
-        <h3>Desmembramento</h3>
+
+        <h3>
+          Desmembramento
+        </h3>
+
         <p>
           Divisão técnica de áreas conforme as necessidades do projeto.
         </p>
+
       </article>
 
+
       <article class="service">
+
         <div class="service-icon">◇</div>
-        <h3>Demarcação de Divisas</h3>
+
+        <h3>
+          Demarcação de Divisas
+        </h3>
+
         <p>
           Identificação e materialização dos limites de propriedades.
         </p>
+
       </article>
 
+
       <article class="service">
+
         <div class="service-icon">▤</div>
-        <h3>Loteamentos</h3>
+
+        <h3>
+          Loteamentos
+        </h3>
+
         <p>
           Levantamentos e projetos para organização e implantação de lotes.
         </p>
+
       </article>
 
+
       <article class="service">
+
         <div class="service-icon">◫</div>
-        <h3>Usucapião</h3>
+
+        <h3>
+          Usucapião
+        </h3>
+
         <p>
           Levantamentos e documentação técnica para processos de usucapião.
         </p>
+
       </article>
 
+
       <article class="service">
+
         <div class="service-icon">◎</div>
-        <h3>Retificação e Unificação</h3>
+
+        <h3>
+          Retificação e Unificação
+        </h3>
+
         <p>
           Serviços técnicos para correção e integração de áreas.
         </p>
+
       </article>
 
+
       <article class="service">
+
         <div class="service-icon">▥</div>
-        <h3>Certificação INCRA / SIGEF</h3>
+
+        <h3>
+          Certificação INCRA / SIGEF
+        </h3>
+
         <p>
           Serviços relacionados à certificação de imóveis rurais.
         </p>
+
       </article>
 
+
       <article class="service">
+
         <div class="service-icon">⌂</div>
-        <h3>Locações</h3>
+
+        <h3>
+          Locações
+        </h3>
+
         <p>
           Locação e marcação de pontos para obras e projetos.
         </p>
+
       </article>
 
+
       <article class="service">
+
         <div class="service-icon">⌘</div>
-        <h3>Projetos</h3>
+
+        <h3>
+          Projetos
+        </h3>
+
         <p>
           Elaboração e consultoria técnica para diferentes necessidades.
         </p>
+
       </article>
 
+
       <article class="service">
+
         <div class="service-icon">✓</div>
-        <h3>Consultoria</h3>
+
+        <h3>
+          Consultoria
+        </h3>
+
         <p>
           Orientação técnica para encontrar a solução adequada ao seu imóvel.
         </p>
+
       </article>
 
     </div>
@@ -1146,20 +1552,106 @@
 
   <div class="container about-grid">
 
-    <div class="about-visual">
 
-      <div class="compass">
+    <!-- =========================
+         NOVO LOGO 3D
+    ========================= -->
 
-        <span class="direction north">N</span>
-        <span class="direction south">S</span>
-        <span class="direction east">E</span>
-        <span class="direction west">W</span>
+    <div
+      class="about-visual"
+      id="logo3DScene">
 
-        <div class="compass-center"></div>
+      <div class="topo-lines topo-lines-1"></div>
+
+      <div class="topo-lines topo-lines-2"></div>
+
+      <div class="topo-lines topo-lines-3"></div>
+
+
+      <div
+        class="logo-3d-wrapper"
+        id="logo3DWrapper">
+
+
+        <div class="logo-3d-depth depth-1">
+
+          <img
+            src="logo.png"
+            alt="">
+
+        </div>
+
+
+        <div class="logo-3d-depth depth-2">
+
+          <img
+            src="logo.png"
+            alt="">
+
+        </div>
+
+
+        <div class="logo-3d-depth depth-3">
+
+          <img
+            src="logo.png"
+            alt="">
+
+        </div>
+
+
+        <div class="logo-3d-depth depth-4">
+
+          <img
+            src="logo.png"
+            alt="">
+
+        </div>
+
+
+        <div class="logo-3d-depth depth-5">
+
+          <img
+            src="logo.png"
+            alt="">
+
+        </div>
+
+
+        <div class="logo-3d-face">
+
+          <img
+            src="logo.png"
+            alt="EGA Topografia e Projetos">
+
+        </div>
 
       </div>
 
+
+      <div class="logo-shadow"></div>
+
+
+      <span class="direction-3d direction-n">
+        N
+      </span>
+
+      <span class="direction-3d direction-s">
+        S
+      </span>
+
+      <span class="direction-3d direction-e">
+        E
+      </span>
+
+      <span class="direction-3d direction-w">
+        W
+      </span>
+
     </div>
+
+
+    <!-- TEXTO -->
 
     <div class="about-text">
 
@@ -1184,10 +1676,21 @@
 
       <ul class="check-list">
 
-        <li>Levantamentos técnicos precisos</li>
-        <li>Soluções para imóveis urbanos e rurais</li>
-        <li>Atendimento personalizado</li>
-        <li>Consultoria e acompanhamento técnico</li>
+        <li>
+          Levantamentos técnicos precisos
+        </li>
+
+        <li>
+          Soluções para imóveis urbanos e rurais
+        </li>
+
+        <li>
+          Atendimento personalizado
+        </li>
+
+        <li>
+          Consultoria e acompanhamento técnico
+        </li>
 
       </ul>
 
@@ -1238,6 +1741,7 @@
 
     </div>
 
+
     <div class="mini-boxes">
 
       <div class="mini-box">
@@ -1284,7 +1788,9 @@
 
     </div>
 
+
     <div class="contact-grid">
+
 
       <div class="contact-info">
 
@@ -1295,6 +1801,7 @@
         <p>
           Precisão, confiança e soluções técnicas para seu imóvel ou projeto.
         </p>
+
 
         <div class="contact-item">
 
@@ -1307,6 +1814,7 @@
           </strong>
 
         </div>
+
 
         <div class="contact-item">
 
@@ -1321,6 +1829,7 @@
         </div>
 
       </div>
+
 
       <div class="contact-card">
 
@@ -1388,6 +1897,190 @@
   ☏
 
 </a>
+
+
+<!-- =========================
+     JAVASCRIPT - LOGO 3D
+========================= -->
+
+<script>
+
+(function () {
+
+  const scene = document.getElementById("logo3DScene");
+  const logo = document.getElementById("logo3DWrapper");
+
+  if (!scene || !logo) return;
+
+
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+
+  let mouseX = 0;
+  let mouseY = 0;
+
+  let targetX = 0;
+  let targetY = 0;
+
+  let currentX = 0;
+  let currentY = 0;
+
+  let scrollRotation = 0;
+
+  let autoRotation = 0;
+
+  let lastScroll = window.scrollY;
+
+
+  /* =========================
+     MOVIMENTO DO MOUSE
+  ========================= */
+
+  scene.addEventListener("mousemove", function(event) {
+
+    const rect = scene.getBoundingClientRect();
+
+    mouseX =
+      (event.clientX - rect.left) /
+      rect.width -
+      0.5;
+
+    mouseY =
+      (event.clientY - rect.top) /
+      rect.height -
+      0.5;
+
+
+    targetY = mouseX * 22;
+
+    targetX = -mouseY * 18;
+
+  });
+
+
+  scene.addEventListener("mouseleave", function() {
+
+    targetX = 0;
+
+    targetY = 0;
+
+  });
+
+
+  /* =========================
+     SCROLL
+  ========================= */
+
+  window.addEventListener(
+    "scroll",
+    function() {
+
+      const currentScroll = window.scrollY;
+
+      const difference =
+        currentScroll - lastScroll;
+
+
+      scrollRotation +=
+        difference * 0.18;
+
+
+      lastScroll = currentScroll;
+
+    },
+    {
+      passive: true
+    }
+  );
+
+
+  /* =========================
+     ANIMAÇÃO
+  ========================= */
+
+  function animate() {
+
+
+    if (!reduceMotion) {
+
+
+      /*
+       * Rotação automática
+       */
+
+      autoRotation += 0.12;
+
+
+      /*
+       * Suavização do mouse
+       */
+
+      currentX +=
+        (targetX - currentX) * 0.08;
+
+
+      currentY +=
+        (targetY - currentY) * 0.08;
+
+
+      /*
+       * Evita números gigantes
+       */
+
+      if (scrollRotation > 36000) {
+
+        scrollRotation -= 36000;
+
+      }
+
+
+      if (scrollRotation < -36000) {
+
+        scrollRotation += 36000;
+
+      }
+
+
+      /*
+       * Movimento final
+       */
+
+      logo.style.transform =
+
+        "rotateX(" +
+        currentX +
+        "deg) " +
+
+        "rotateY(" +
+        (
+          currentY +
+          autoRotation +
+          scrollRotation
+        ) +
+        "deg) " +
+
+        "rotateZ(" +
+        (
+          scrollRotation * 0.08
+        ) +
+        "deg)";
+
+    }
+
+
+    requestAnimationFrame(animate);
+
+  }
+
+
+  animate();
+
+})();
+
+</script>
+
 
 </body>
 </html>
